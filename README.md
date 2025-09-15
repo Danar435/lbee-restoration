@@ -52,13 +52,13 @@ Because this is just an asset replacement patch, there is a limit to what I can 
 
 After downloading, extract the zip file and copy its contents to `C:\Program Files (x86)\Steam\steamapps\common\Little Busters! English Edition`, or wherever you have installed the game. If you're not sure, then you can right click the game from within Steam and then click on `Manage > Browse local files`.
 
-Windows will ask you if you want to overwrite the files. You can just click on yes. If you don't want to redownload the game in case you're unhappy with the patch, you can instead create a copy (backup) of the `files` folder and the `system.cnf` file. If you overwrote the files and want to remove the patch, you can right click on the game in Steam, then go to `Properties`. From there go to `Installed Files` and then `Verify integrity of game files`. This will redownload all of the files that the patch replaces.
+Windows will ask you if you want to overwrite the files. You can just click on yes. If you don't want to redownload the game in case you're unhappy with the patch, you can instead create a copy (backup) of the `files` folder and the `system.cnf` file, and then paste in the patch. If you overwrote the files and want to remove the patch, you can right click on the game in Steam, then go to `Properties`. From there go to `Installed Files` and then `Verify integrity of game files`. This will redownload all of the files that the patch replaced.
 
 ## Building
 
 You can use LuckSystem to repack the pak files. I've made a bash script to automate the process. You will need the LuckSystem binary in the same folder as the patch, or alternatively you can modify the bash script.
 
-`./lbee-repack.sh [path/to/the/game/]` 
+`./lbee-repack.sh path/to/game/folder` 
 
 This will create a folder containing the patch same folder as the script.
 
