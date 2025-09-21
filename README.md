@@ -8,9 +8,9 @@ This patch is aimed at the Steam version of Little Busters: English Edition, a p
 - Backgrounds are restored 
 - CGs are restored
 - Option to uncensor the CGs
+- Option to restore Komari's "donut scene"
 - Textboxes are changed to look like the original
 - Revamped some menus like the original
-- Komari's "donut scene" is restored
 - Characters are slightly taller
 - The original OP is back! (set movie quality to low under system in game settings)
 
