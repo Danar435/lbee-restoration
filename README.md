@@ -7,7 +7,7 @@ This patch is aimed at the Steam version of Little Busters: English Edition, a p
 - The game window is set to 4:3
 - Backgrounds are restored 
 - CGs are restored
-- Some CGs are also uncensored
+- Option to uncensor the CGs
 - Textboxes are changed to look like the original
 - Revamped some menus like the original
 - Komari's "donut scene" is restored
@@ -21,29 +21,29 @@ Because this is an asset replacement patch, there are limitations to what can be
 ## Screenshots
 
 <p align="center">
-  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/SS1.png">
-    <img src="assets/SS1.png" alt="Main Menu" width="350"/>
+  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/.github/assets/SS1.png">
+    <img src=".github/assets/SS1.png" alt="Main Menu" width="350"/>
   </a>
-  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/SS2.png">
-    <img src="assets/SS2.png" alt="In-game" width="350"/>
+  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/.github/assets/SS2.png">
+    <img src=".github/assets/SS2.png" alt="In-game" width="350"/>
   </a>
-  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/SS3.png">
-    <img src="assets/SS3.png" alt="CGs" width="350"/>
+  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/.github/assets/SS3.png">
+    <img src=".github/assets/SS3.png" alt="CGs" width="350"/>
   </a>
-  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/SS4.png">
-    <img src="assets/SS4.png" alt="Events" width="350"/>
+  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/.github/assets/SS4.png">
+    <img src=".github/assets/SS4.png" alt="Events" width="350"/>
   </a>
-  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/SS5.png">
-    <img src="assets/SS5.png" alt="Choices" width="350"/>
+  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/.github/assets/SS5.png">
+    <img src=".github/assets/SS5.png" alt="Choices" width="350"/>
   </a>
-  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/SS6.png">
-    <img src="assets/SS6.png" alt="Battles" width="350"/>
+  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/.github/assets/SS6.png">
+    <img src=".github/assets/SS6.png" alt="Battles" width="350"/>
   </a>
-  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/SS7.png">
-    <img src="assets/SS7.png" alt="Rankings" width="350"/>
+  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/.github/assets/SS7.png">
+    <img src=".github/assets/SS7.png" alt="Rankings" width="350"/>
   </a>
-  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/SS8.png">
-    <img src="assets/SS8.png" alt="Baseball" width="350"/>
+  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/.github/assets/SS8.png">
+    <img src=".github/assets/SS8.png" alt="Baseball" width="350"/>
   </a>
 </p>
 
@@ -57,13 +57,22 @@ Before installing the patch, consider backing up the `files` folder and `system.
 
 ## Building
 
-To build the patch on Linux, use the provided bash script. You'll both the [LuckSystem](http://github.com/wetor/LuckSystem/releases/latest/download/LuckSystem_linux_x86_64.zip) binary and a clone of the [LB_repack](https://github.com/thedanill/LB_repack/archive/refs/heads/main.zip) repository. Place both in the same folder as the script, or modify the script paths as needed. Then run:
+To build the patch on Linux, use the provided bash script. You'll need the [LuckSystem](http://github.com/wetor/LuckSystem/releases/latest/download/LuckSystem_linux_x86_64.zip) binary in the same folder as the script, or alternatively modify the script path as needed. 
+
+To create the patch using the original uncensored assets, run:
 
 ```bash
 ./lbee-repack.sh /path/to/game/folder/
 ```
 
-This will create an `output` folder containing the patched pak files. 
+To create the patch using LBEE's censored assets, run:
+
+```bash
+./lbee-repack.sh -c /path/to/game/folder/
+```
+
+
+The script will repack the files and create an `output` folder containing the patched pak files. 
 
 ## Notes
 
@@ -74,5 +83,6 @@ I've made some notes for those looking into making a similar patch or contribute
 - [WéΤοr](https://github.com/wetor) for [LuckSystem](https://github.com/wetor/LuckSystem) 
 - [G2](https://github.com/G2-Games) for [lbee-utils](https://github.com/G2-Games/lbee-utils)
 - [danil](https://github.com/thedanill) for [LB_repack](https://github.com/thedanill/LB_repack)
+- [CPlusSharp](https://github.com/cplussharp/) for [GraphStudioNext](https://github.com/cplussharp/graph-studio-next)
+- [Sep7](https://github.com/Sep7em) for testing
 - [Zipplet/Kotomi](https://github.com/zipplet)
-- [Sep7](https://github.com/Sep7em)
