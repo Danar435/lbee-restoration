@@ -27,7 +27,8 @@ if [ ! -f "$input_path/LITBUS_WIN32.exe" ]; then
 fi
 
 mkdir -p "$output_path/files"
-cp ./source/system.cnf "$output_path/"
+cp ./source/aux/system.cnf "$output_path/"
+cp ./source/aux/movie/ "$output_path/files/movie/"
 
 repack() {
   file="$1"
