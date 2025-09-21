@@ -26,9 +26,19 @@ if [ ! -f "$input_path/LITBUS_WIN32.exe" ]; then
   exit 1
 fi
 
-mkdir -p "$output_path/files"
-cp ./source/aux/system.cnf "$output_path/"
-cp ./source/aux/movie/ "$output_path/files/movie/"
+echo "Processing auxillary files..."
+
+mkdir -p "$output_path/files/movie/low"
+cp ./source/auxiliary-files/system.cnf "$output_path/"
+cp ./source/auxiliary-files/movie/AYA.webm "$output_path/files/movie/AYA.webm"
+cp ./source/auxiliary-files/movie/EDAL_en.webm "$output_path/files/movie/EDAL_en.webm"
+cp ./source/auxiliary-files/movie/EDAL.webm "$output_path/files/movie/EDAL.webm"
+cp ./source/auxiliary-files/movie/OP00_en.webm "$output_path/files/movie/OP00_en.webm"
+cp ./source/auxiliary-files/movie/OP00.webm "$output_path/files/movie/OP00.webm"
+cp ./source/auxiliary-files/movie/EDAL_en.webm "$output_path/files/movie/low/EDAL_en.webm"
+cp ./source/auxiliary-files/movie/EDAL.webm "$output_path/files/movie/low/EDAL.webm"
+cp ./source/auxiliary-files/movie/OP00_og.webm "$output_path/files/movie/low/OP00_en.webm"
+cp ./source/auxiliary-files/movie/OP00_og.webm "$output_path/files/movie/low/OP00.webm"
 
 repack() {
   file="$1"
