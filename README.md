@@ -5,9 +5,9 @@ Restore Little Busters' original assets!
 This patch is aimed at the Steam version of Little Busters: English Edition, a port created by Prototype using the Luca Engine. These ports are notorious for having a bland UI and cut backgrounds/CGs due to the 16:9 aspect ratio. Well, that is no longer the case. With this patch...
 
 - The game window is set to 4:3
-- Backgrounds are restored 
-- CGs are restored
-- Option to uncensor the CGs
+- Backgrounds are restored to 4:3
+- CGs are restored to 4:3
+- Option to uncensor the CGs like the original
 - Option to restore Komari's "donut scene"
 - Textboxes are changed to look like the original
 - Revamped some menus like the original
