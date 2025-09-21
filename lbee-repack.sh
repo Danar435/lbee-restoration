@@ -106,5 +106,5 @@ repack "pt"
 repack "syscg"
 rewrite "script"
 
-echo "Patching completed! Check the '$output_path' directory for the results."
+echo "Patching completed! Check the '$output_path' directory for the patched files."
 exit 0

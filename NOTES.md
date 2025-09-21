@@ -1,3 +1,7 @@
+# WIP
+
+Not yet fully done, raw notes
+
 # Notes
 
 Just a text dump with some info on the tools, paks and processes used for this project. Hope you find them useful.

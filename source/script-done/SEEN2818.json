@@ -18932,7 +18932,7 @@
 		"opcode": "SCALE",
 		"flag": 0,
 		"fixed_param": [],
-		"raw_args": "ff0078002c012c0100008002f1003c0001"
+		"raw_args": "ff0078002c012c010000800268013c0001"
 	},
 	{
 		"label": 72888,
@@ -19519,7 +19519,7 @@
 		"opcode": "SCALE",
 		"flag": 0,
 		"fixed_param": [],
-		"raw_args": "ff0078002c012c0100008002f1003c0001"
+		"raw_args": "ff0078002c012c010000800268013c0001"
 	},
 	{
 		"label": 74310,
@@ -19950,7 +19950,7 @@
 		"opcode": "SCALE",
 		"flag": 0,
 		"fixed_param": [],
-		"raw_args": "ff0078002c012c0100008002f1003c0001"
+		"raw_args": "ff0078002c012c010000800268013c0001"
 	},
 	{
 		"label": 75026,
@@ -20114,7 +20114,7 @@
 		"opcode": "SCALE",
 		"flag": 0,
 		"fixed_param": [],
-		"raw_args": "ff0078002c012c0100008002f1003c0001"
+		"raw_args": "ff0078002c012c010000800268013c0001"
 	},
 	{
 		"label": 75290,
@@ -20309,7 +20309,7 @@
 		"opcode": "SCALE",
 		"flag": 0,
 		"fixed_param": [],
-		"raw_args": "ff0078002c012c0100008002f1003c0001"
+		"raw_args": "ff0078002c012c010000800268013c0001"
 	},
 	{
 		"label": 75756,
@@ -20508,7 +20508,7 @@
 		"opcode": "SCALE",
 		"flag": 0,
 		"fixed_param": [],
-		"raw_args": "ff0078002c012c0100008002f1003c0001"
+		"raw_args": "ff0078002c012c010000800268013c0001"
 	},
 	{
 		"label": 76356,
