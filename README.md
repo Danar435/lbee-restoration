@@ -1,22 +1,22 @@
 # LBEE Restoration Patch
 
-Restoring Little Busters' original assets!
+Restore Little Busters' original assets!
 
-This patch is aimed at the Steam version of Little Busters, namely English Edition, which a port created by Prototype, using Luca Engine. These ports are notorious for having a bland UI and cut backgrounds/CGs due to the 16:9 aspect ratio. Well, that is no longer the case. With the patch...
+This patch is aimed at the Steam version of Little Busters: English Edition, a port created by Prototype using the Luca Engine. These ports are notorious for having a bland UI and cut backgrounds/CGs due to the 16:9 aspect ratio. Well, that is no longer the case. With this patch...
 
 - The game window is set to 4:3
 - Backgrounds are restored 
 - CGs are restored
 - Some CGs are also uncensored
-- Textboxes are made to look like the original
-- Menus follow the light blue LB theme
+- Textboxes are changed to look like the original
+- Revamped some menus like the original
 - Komari's "donut scene" is restored
 - Characters are slightly taller
 - The original OP is back! (set movie quality to low under system in game settings)
 
-There are some things that were not restored to 4:3, namely the battle and the baseball minigames, with the battle minigame being a bit zoomed in. Other things are broken, such as the 'status' card images.
+Some elements could not be restored to 4:3, specifically the battle and baseball minigames, with the battle minigame appearing slightly zoomed in. Additionally, certain elements like the 'status' card images are now broken.
 
-Because this is just an asset replacement patch, there is a limit to what I can do. Fixing the aformentioned issues require a decompilation of the engine to manipulate the positioning of the UI and text elements, which is out of scope for this project. I've done as much as I can do with the tools I was given.
+Because this is an asset replacement patch, there are limitations to what can be achieved. Fixing the aforementioned issues would require decompiling the engine to manipulate UI and text element positioning, which is beyond the scope of this project. I've done as much as I could do with the tools that I was given.
 
 ## Screenshots
 
@@ -51,15 +51,17 @@ Because this is just an asset replacement patch, there is a limit to what I can 
 
 [Click here to download the patch](http://github.com/Danar435/lbee-restoration/releases/latest/download/lbee-patch.zip), or download it from the [releases tab](https://github.com/Danar435/lbee-restoration/releases)!
 
-After downloading, extract the zip file and copy its contents to `C:\Program Files (x86)\Steam\steamapps\common\Little Busters! English Edition`, or wherever you have installed the game. If you're not sure, then you can right click the game from within Steam and then click on `Manage > Browse local files`. Windows will ask you if you want to overwrite the files. You can just click on yes. 
+After downloading, extract the zip file and copy its contents to the game installation directory, which is usually in `C:\Program Files (x86)\Steam\steamapps\common\Little Busters! English Edition`. When Windows prompts you about overwriting the files, click "Yes" to proceed. The patch is then installed!
 
-If you don't want to redownload the original assets in case you're unhappy with the patch, you can instead create a copy (backup) of the `files` folder and the `system.cnf` file, and then paste in the patch. If you overwrote the files and want to remove the patch, you can right click on the game in Steam, then go to `Properties`. From there go to `Installed Files` and then `Verify integrity of game files`. This will redownload all of the files that the patch replaced.
+Before installing the patch, consider backing up the `files` folder and `system.cnf` file to avoid redownloading the original files if you want to revert the changes later. If you've already installed the patch and want to redownload the original files, right-click the game in Steam, select "Properties", navigate to "Installed Files", and click "Verify integrity of game files". Steam will then redownload all of the files that were replaced.
 
 ## Building
 
-I've made a bash script to automate the build process. You will need both the LuckSystem binary and a clone of LB_repack repo in the same folder as the patch, or alternatively you can modify the bash script to your needs.
+To build the patch on Linux, use the provided bash script. You'll both the [LuckSystem](http://github.com/wetor/LuckSystem/releases/latest/download/LuckSystem_linux_x86_64.zip) binary and a clone of the [LB_repack](https://github.com/thedanill/LB_repack/archive/refs/heads/main.zip) repository. Place both in the same folder as the script, or modify the script paths as needed. Then run:
 
-`./lbee-repack.sh /path/to/game/folder/` 
+```bash
+./lbee-repack.sh /path/to/game/folder/
+```
 
 This will create an `output` folder containing the patched pak files. 
 
@@ -67,10 +69,10 @@ This will create an `output` folder containing the patched pak files.
 
 I've made some notes for those looking into making a similar patch or contribute to this. You can [find them here](http://github.com/Danar435/lbee-restoration/blob/main/NOTES.md). If you have any questions regarding the process, then please use GitHub's Discussions instead of opening Issues.
 
-## Credits
+## Special Thanks
 
-- [LuckSystem](https://github.com/wetor/LuckSystem) by [WéΤοr](https://github.com/wetor)
-- [lbee-utils](https://github.com/G2-Games/lbee-utils) by [G2](https://github.com/G2-Games)
-- [LB_repack](https://github.com/thedanill/LB_repack) by [danil](https://github.com/thedanill)
+- [WéΤοr](https://github.com/wetor) for [LuckSystem](https://github.com/wetor/LuckSystem) 
+- [G2](https://github.com/G2-Games) for [lbee-utils](https://github.com/G2-Games/lbee-utils)
+- [danil](https://github.com/thedanill) for [LB_repack](https://github.com/thedanill/LB_repack)
 - [Zipplet/Kotomi](https://github.com/zipplet)
 - [Sep7](https://github.com/Sep7em)
