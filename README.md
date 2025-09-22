@@ -14,6 +14,8 @@ This patch is aimed at the Steam version of Little Busters: English Edition, a p
 - Characters are slightly taller
 - The original OP is back! (set movie quality to low under system in game settings)
 
+Do note that the patch is uncensored by default to the levels of the original VN, not of Ecstasy. 
+
 Some elements could not be restored to 4:3, specifically the battle and baseball minigames, with the battle minigame appearing slightly zoomed in. Additionally, certain elements like the 'status' card images are now broken.
 
 Because this is an asset replacement patch, there are limitations to what can be achieved. Fixing the aforementioned issues would require decompiling the engine to manipulate UI and text element positioning, which is beyond the scope of this project. I've done as much as I could do with the tools that I was given.
@@ -84,5 +86,5 @@ I've made some notes for those looking into making a similar patch or contribute
 - [G2](https://github.com/G2-Games) for [lbee-utils](https://github.com/G2-Games/lbee-utils)
 - [danil](https://github.com/thedanill) for [LB_repack](https://github.com/thedanill/LB_repack)
 - [CPlusSharp](https://github.com/cplussharp/) for [GraphStudioNext](https://github.com/cplussharp/graph-studio-next)
-- [Sep7](https://github.com/Sep7em) for testing
+- [Sep7](https://github.com/Sep7em) for feedback
 - [Zipplet/Kotomi](https://github.com/zipplet)
