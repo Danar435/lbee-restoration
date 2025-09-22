@@ -77,9 +77,9 @@ cp -r ./source/auxiliary-files/movie "$output_path/files/"
 if [ "$use_censored" = true ]; then
   echo "Processing censored assets..."
 
+  rm ./source/script-done/SEEN0520
   rm -r ./source/eventcg-done/
   cp -r ./source/auxiliary-files/clean/eventcg-done ./source/eventcg-done
-  cp ./source/auxiliary-files/clean/SEEN0520 ./source/script-done/SEEN0520
   cp ./source/auxiliary-files/clean/NYKD_MASK01 ./source/othcg-done/NYKD_MASK01
 fi
 
