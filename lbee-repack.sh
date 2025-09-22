@@ -70,17 +70,9 @@ fi
 
 echo "Processing auxillary files..."
 
-mkdir -p "$output_path/files/movie/low"
+mkdir -p "$output_path/files"
 cp ./source/auxiliary-files/system.cnf "$output_path/"
-cp ./source/auxiliary-files/movie/AYA.webm "$output_path/files/movie/AYA.webm"
-cp ./source/auxiliary-files/movie/EDAL_en.webm "$output_path/files/movie/EDAL_en.webm"
-cp ./source/auxiliary-files/movie/EDAL.webm "$output_path/files/movie/EDAL.webm"
-cp ./source/auxiliary-files/movie/OP00_en.webm "$output_path/files/movie/OP00_en.webm"
-cp ./source/auxiliary-files/movie/OP00.webm "$output_path/files/movie/OP00.webm"
-cp ./source/auxiliary-files/movie/EDAL_en.webm "$output_path/files/movie/low/EDAL_en.webm"
-cp ./source/auxiliary-files/movie/EDAL.webm "$output_path/files/movie/low/EDAL.webm"
-cp ./source/auxiliary-files/movie/OP00_og_en.webm "$output_path/files/movie/low/OP00_en.webm"
-cp ./source/auxiliary-files/movie/OP00_og.webm "$output_path/files/movie/low/OP00.webm"
+cp -r ./source/auxiliary-files/movie "$output_path/files/"
 
 if [ "$use_censored" = true ]; then
   echo "Processing censored assets..."
@@ -123,5 +115,6 @@ repack "pt"
 repack "syscg"
 repack "script"
 
-echo "Patching completed! Check the '$output_path' directory for the patched files."
+echo "Patching completed!"
+echo "Check the '$output_path' directory for the patched files."
 exit 0
