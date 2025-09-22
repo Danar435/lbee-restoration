@@ -90,7 +90,7 @@ Contains all the CGs. When you extract them you'll notice that some images are c
 
 ### CHARCG
 
-Contains character images. Like with the CGs, the faces are cut out and overlaid on top of a base image. It's a bit difficult to figure out which image from just looking at the pak, so I suggest either loading the image in the script (what I did) or copy my homework and look inside of `assets/charcg-raw`. While repacking the full images is a decent option (what I did with eventcg), there are some semi-transparent pixels around the image, which are stacked when the images are overlaid on top of each other. To circumvent that I took the original overlays, upscaled them using nearest neighbour, selected the transpareny and used that selection to cut the new overlays. As for importing, the anchor seems to be in a weird different spot, so use (-640, -960) as coordinates if the images are 1280x960 in size.
+Contains character images. Like with the CGs, the faces are cut out and overlaid on top of a base image. It's a bit difficult to figure out which image from just looking at the pak, so I suggest either loading the image in the script (what I did) or copy my homework and look inside of `assets/charcg-raw`. Repacking the full images is a decent option (what I did with eventcg), but there are some semi-transparent pixels around the image, which are stacked when the images are overlaid on top of each other. I originally cut the images similar to how they are extracted, and while it looked good, when a character moves or scales, you could see a faint outline. So instead I dug through the pak file and found where the overlays are assigned and removed all of that (you can see it in the shell script), and just used the full size images.
 
 ### GENCG
 

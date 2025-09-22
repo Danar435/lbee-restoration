@@ -1,8 +1,12 @@
 #!/bin/bash
 
+# Paths and defaults
+
 output_path="./output"
 lucksystem_bin="./lucksystem"
 use_censored=false
+
+# Help message
 
 show_help() {
   echo "Usage: $0 [options] /path/to/game/folder/"
@@ -15,6 +19,8 @@ show_help() {
   echo
   exit 1
 }
+
+# Argument parsing
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -48,6 +54,8 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+# Basic checks
+
 if [ -z "$input_path" ]; then
   show_help
 fi
@@ -68,11 +76,16 @@ if [ ! -f "$input_path/LITBUS_WIN32.exe" ]; then
   exit 1
 fi
 
-echo "Processing auxillary files..."
+echo "Processing auxiliary files..."
+
+# Copy auxiliary files
 
 mkdir -p "$output_path/files"
 cp ./source/auxiliary-files/system.cnf "$output_path/"
 cp -r ./source/auxiliary-files/movie "$output_path/files/"
+
+# Copy censored assets if needed
+# This will OVERWRITE uncensored assets, you can restore them with `git restore .`
 
 if [ "$use_censored" = true ]; then
   echo "Processing censored assets..."
@@ -85,8 +98,12 @@ fi
 
 
 repack() {
+  # File prefix and PAK name
+
   file="$1"
   pak=$(echo "$file" | tr '[:lower:]' '[:upper:]').PAK
+
+  # Basic checks
 
   if [ ! -f "$input_path/files/$pak" ]; then
       echo "Error: $input_path/files/$pak not found!"
@@ -95,13 +112,17 @@ repack() {
 
   echo "Processing $pak..."
 
+  # Create temp dir, extract, copy modified assets, repack, cleanup
+
   mkdir -p "$output_path/$file-temp"
   "$lucksystem_bin" pak extract -s "$input_path/files/$pak" -i "$input_path/files/$pak" -o "$output_path/temp" -a "$output_path/$file-temp" > /dev/null 2>&1
-  rm "$output_path/temp"
   cp -r "./source/$file-done/"* "$output_path/$file-temp/"
   "$lucksystem_bin" pak replace -s "$input_path/files/$pak" -i "$output_path/$file-temp" -o "$output_path/files/$pak" > /dev/null 2>&1
   rm -r "$output_path/$file-temp"
+  rm "$output_path/temp"
 }
+
+# Repack all PAKs
 
 repack "battle"
 repack "bgcg"
@@ -114,6 +135,12 @@ repack "parts"
 repack "pt"
 repack "syscg"
 repack "script"
+
+# Patch out character overlays in CHARCG.PAK
+
+dd if=/dev/zero of="$output_path/files/CHARCG.PAK" bs=1 seek=$((0x9568)) count=$((0xA42B - 0x9568)) conv=notrunc > /dev/null 2>&1
+
+# Final message
 
 echo "Patching completed!"
 echo "Check the '$output_path' directory for the patched files."
