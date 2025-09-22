@@ -51,11 +51,11 @@ Because this is an asset replacement patch, there are limitations to what can be
 
 ## Installing
 
-[Click here to download the patch](http://github.com/Danar435/lbee-restoration/releases/latest/download/lbee-patch.zip), or download it from the [releases tab](https://github.com/Danar435/lbee-restoration/releases)!
+Download the patch from the [releases tab](https://github.com/Danar435/lbee-restoration/releases)!
 
-After downloading, extract the zip file and copy its contents to the game installation directory, which is usually in `C:\Program Files (x86)\Steam\steamapps\common\Little Busters! English Edition`. When Windows prompts you about overwriting the files, click "Yes" to proceed. The patch is then installed!
+Afterwards, extract the zip file and copy its contents to the game installation directory, which is usually in `C:\Program Files (x86)\Steam\steamapps\common\Little Busters! English Edition`. When Windows prompts you about overwriting the files, click "Yes" to proceed. The patch is then installed!
 
-Before installing the patch, consider backing up the `files` folder and `system.cnf` file to avoid redownloading the original files if you want to revert the changes later. If you've already installed the patch and want to redownload the original files, right-click the game in Steam, select "Properties", navigate to "Installed Files", and click "Verify integrity of game files". Steam will then redownload all of the files that were replaced.
+Before installing the patch, consider backing up the `files` folder and `system.cnf` file to avoid redownloading the original files in case you want to revert the changes later. If you've already installed the patch and want to redownload the original files, right-click the game in Steam, select "Properties", navigate to "Installed Files", and click "Verify integrity of game files". Steam will then redownload all of the files that were replaced.
 
 ## Building
 
