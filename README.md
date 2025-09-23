@@ -59,7 +59,7 @@ Before installing the patch, consider backing up the `files` folder and `system.
 
 ## Building
 
-To build the patch on Linux, use the provided bash script. You'll need the [LuckSystem](http://github.com/wetor/LuckSystem/releases/latest/download/LuckSystem_linux_x86_64.zip) binary in the same folder as the script, or alternatively modify the script path as needed. 
+To build the patch on Linux, use the provided bash script. You'll need the [LuckSystem](http://github.com/wetor/LuckSystem/releases/latest/download/LuckSystem_linux_x86_64.zip) binary in the same folder as the script, or alternatively specify its location with `-l`.
 
 To create the patch using the original uncensored assets, run:
 
