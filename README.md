@@ -87,4 +87,4 @@ I've made some notes for those looking into making a similar patch or contribute
 - [danil](https://github.com/thedanill) for [LB_repack](https://github.com/thedanill/LB_repack)
 - [CPlusSharp](https://github.com/cplussharp/) for [GraphStudioNext](https://github.com/cplussharp/graph-studio-next)
 - [Sep7](https://github.com/Sep7em) for feedback
-- [Zipplet/Kotomi](https://github.com/zipplet)
+- [Kotomi](https://github.com/zipplet)
