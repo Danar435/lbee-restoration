@@ -98,6 +98,7 @@ fi
 
 
 repack() {
+  
   # File prefix and PAK name
 
   file="$1"
@@ -112,14 +113,9 @@ repack() {
 
   echo "Processing $pak..."
 
-  # Create temp dir, extract, copy modified assets, repack, cleanup
+  # Repack the new assets
 
-  mkdir -p "$output_path/$file-temp"
-  "$lucksystem_bin" pak extract -s "$input_path/files/$pak" -i "$input_path/files/$pak" -o "$output_path/temp" -a "$output_path/$file-temp" > /dev/null 2>&1
-  cp -r "./source/$file-done/"* "$output_path/$file-temp/"
-  "$lucksystem_bin" pak replace -s "$input_path/files/$pak" -i "$output_path/$file-temp" -o "$output_path/files/$pak" > /dev/null 2>&1
-  rm -r "$output_path/$file-temp"
-  rm "$output_path/temp"
+  "$lucksystem_bin" pak replace -s "$input_path/files/$pak" -i "./source/$file-done/" -o "$output_path/files/$pak" > /dev/null 2>&1
 }
 
 # Repack all PAKs
