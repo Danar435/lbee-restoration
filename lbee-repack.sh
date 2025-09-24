@@ -85,15 +85,15 @@ cp ./source/auxiliary-files/system.cnf "$output_path/"
 cp -r ./source/auxiliary-files/movie "$output_path/files/"
 
 # Copy censored assets if needed
-# This will OVERWRITE uncensored assets, you can restore them with `git restore .`
 
 if [ "$use_censored" = true ]; then
   echo "Processing censored assets..."
 
-  rm ./source/script-done/SEEN0520
-  rm -r ./source/eventcg-done/
-  cp -r ./source/auxiliary-files/clean/eventcg-done ./source/eventcg-done
-  cp ./source/auxiliary-files/clean/NYKD_MASK01 ./source/othcg-done/NYKD_MASK01
+  mv -r ./source/eventcg-done/ ./source/auxiliary-files/uncensored/eventcg-done/
+  mv ./source/script-done/SEEN0520 ./source/auxiliary-files/uncensored/SEEN0520
+  mv ./source/othcg-done/NYKD_MASK01 ./source/auxiliary-files/uncensored/NYKD_MASK01
+  cp -r ./source/auxiliary-files/censored/eventcg-done ./source/eventcg-done
+  cp ./source/auxiliary-files/censored/NYKD_MASK01 ./source/othcg-done/NYKD_MASK01
 fi
 
 
@@ -135,6 +135,19 @@ repack "script"
 # Patch out character overlays in CHARCG.PAK
 
 dd if=/dev/zero of="$output_path/files/CHARCG.PAK" bs=1 seek=$((0x9568)) count=$((0xA42B - 0x9568)) conv=notrunc > /dev/null 2>&1
+
+# Restore uncensored assets if needed
+
+if [ "$use_censored" = true ]; then
+  echo "Restoring source assets..."
+
+  rm -r ./source/auxiliary-files/censored/eventcg-done ./source/eventcg-done
+  rm ./source/auxiliary-files/censored/NYKD_MASK01 ./source/othcg-done/NYKD_MASK01
+  cp -r ./source/auxiliary-files/uncensored/eventcg-done/ ./source/eventcg-done/
+  cp ./source/auxiliary-files/uncensored/NYKD_MASK01 ./source/othcg-done/NYKD_MASK01
+  cp ./source/auxiliary-files/uncensored/SEEN0520 ./source/script-done/SEEN0520 
+  rm -r ./source/auxiliary-files/uncensored/
+fi
 
 # Final message
 
