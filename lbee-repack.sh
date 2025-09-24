@@ -89,7 +89,8 @@ cp -r ./source/auxiliary-files/movie "$output_path/files/"
 if [ "$use_censored" = true ]; then
   echo "Processing censored assets..."
 
-  mv -r ./source/eventcg-done/ ./source/auxiliary-files/uncensored/eventcg-done/
+  mkdir -p ./source/auxiliary-files/uncensored/
+  mv ./source/eventcg-done/ ./source/auxiliary-files/uncensored/eventcg-done/
   mv ./source/script-done/SEEN0520 ./source/auxiliary-files/uncensored/SEEN0520
   mv ./source/othcg-done/NYKD_MASK01 ./source/auxiliary-files/uncensored/NYKD_MASK01
   cp -r ./source/auxiliary-files/censored/eventcg-done ./source/eventcg-done
@@ -141,8 +142,6 @@ dd if=/dev/zero of="$output_path/files/CHARCG.PAK" bs=1 seek=$((0x9568)) count=$
 if [ "$use_censored" = true ]; then
   echo "Restoring source assets..."
 
-  rm -r ./source/auxiliary-files/censored/eventcg-done ./source/eventcg-done
-  rm ./source/auxiliary-files/censored/NYKD_MASK01 ./source/othcg-done/NYKD_MASK01
   cp -r ./source/auxiliary-files/uncensored/eventcg-done/ ./source/eventcg-done/
   cp ./source/auxiliary-files/uncensored/NYKD_MASK01 ./source/othcg-done/NYKD_MASK01
   cp ./source/auxiliary-files/uncensored/SEEN0520 ./source/script-done/SEEN0520 
