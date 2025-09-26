@@ -135,7 +135,7 @@ repack "script"
 
 # Patch out character overlays in CHARCG.PAK
 
-dd if=/dev/zero of="$output_path/files/CHARCG.PAK" bs=1 seek=$((0x9568)) count=$((0xA42B - 0x9568)) conv=notrunc > /dev/null 2>&1
+dd if=/dev/zero of="$output_path/files/CHARCG.PAK" bs=1 seek=$((0x9568)) count=$((0xA42C - 0x9568)) conv=notrunc > /dev/null 2>&1
 
 # Restore uncensored assets if needed
 
