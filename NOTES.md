@@ -74,7 +74,7 @@ LuckSystem also supports extracting the script (in theory), but good luck with t
 
 ### Helper.py
 
-My own script that has some commands for dealing with annoying tasks or executing batch actions. It's not yet finished.
+My own script that has some commands for dealing with annoying tasks or executing batch actions. More information can be found in the file itself. 
 
 ## Paks
 
