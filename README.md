@@ -7,11 +7,12 @@ This patch is aimed at the Steam version of Little Busters: English Edition, a p
 - The game window is set to 4:3
 - Backgrounds are restored to 4:3
 - CGs are restored to 4:3
-- CGs are uncensored like the original (Optional)
-- Komari's "donut scene" is restored (Optional)
+- CGs are uncensored like the original (optional)
+- Komari's "donut scene" is restored (optional)
 - Textboxes are changed to look like the original
 - Revamped some menus like the original
 - Characters are slightly taller
+- Add in fan sprites for Suginami (optional)
 - The original OP is back! (set movie quality to low under system in game settings)
 
 Do note that the patch is uncensored by default to the levels of the original VN, not of Ecstasy. 
