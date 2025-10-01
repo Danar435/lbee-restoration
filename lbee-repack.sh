@@ -142,10 +142,12 @@ dd if=/dev/zero of="$output_path/files/CHARCG.PAK" bs=1 seek=$((0x9568)) count=$
 if [ "$use_censored" = true ]; then
   echo "Restoring source assets..."
 
-  cp -r ./source/auxiliary-files/uncensored/eventcg-done/ ./source/eventcg-done/
+  cp -r ./source/auxiliary-files/uncensored/eventcg-done ./source
   cp ./source/auxiliary-files/uncensored/NYKD_MASK01 ./source/othcg-done/NYKD_MASK01
   cp ./source/auxiliary-files/uncensored/SEEN0520 ./source/script-done/SEEN0520 
   rm -r ./source/auxiliary-files/uncensored/
+  rm ./source/eventcg-done/322
+  rm ./source/eventcg-done/323
 fi
 
 # Final message
