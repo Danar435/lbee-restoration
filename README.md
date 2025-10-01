@@ -86,5 +86,6 @@ I've made some notes for those looking into making a similar patch or contribute
 - [G2](https://github.com/G2-Games) for [lbee-utils](https://github.com/G2-Games/lbee-utils)
 - [danil](https://github.com/thedanill) for [LB_repack](https://github.com/thedanill/LB_repack)
 - [CPlusSharp](https://github.com/cplussharp/) for [GraphStudioNext](https://github.com/cplussharp/graph-studio-next)
+- [Takafumi](https://forum.kazamatsuri.org/u/Takafumi/summary) for the [Suginami Mod](https://forum.kazamatsuri.org/t/little-busters-suginami-mutsumi-mod/823)
 - [Sep7](https://github.com/Sep7em) for feedback
 - [Kotomi](https://github.com/zipplet)
