@@ -1,7 +1,9 @@
 from gooey import Gooey, GooeyParser
 from pathlib import Path
 import os
+import pyxdelta
 import requests
+import shutil
 from zipfile import ZipFile
 
 # Needed for Gnome to work properly
@@ -58,6 +60,18 @@ def main():
 
     args = parser.parse_args()
     input = Path(args.path)
+    exe = Path(f"{input}/LITBUS_WIN32.exe")
+    exe_backup = Path(f"{exe}-backup")
+
+    # Error catching
+    try:
+        exe.resolve(strict=True)
+
+    except:
+        print("🟥 LITBUS_WIN32.exe not found!")
+        print("Make sure that the game path is correct.")
+        print("It should point to 'Little Busters! English Edition'.")
+        exit(1)
 
     # Download any missing assets
     download(lucksystem, lucksystem_url)
@@ -65,21 +79,43 @@ def main():
 
     # Run the main repack script
     print("➡️ Patching main assets...")
-    #for i in pak_list:
-    #    repack(lucksystem, source, input, i)
+    for i in pak_list:
+        repack(lucksystem, source, input, i)
 
-
-    # Handle censoring assets
+    # Handle uncensoring assets
     if not args.censored:
         print("➡️ Patching uncensored assets...")
-        #repack(lucksystem, Path(f"{source}/auxiliary-files/censored"), input, "eventcg")
-        #repack(lucksystem, Path(f"{source}/auxiliary-files/censored"), input, "othcg")
+        for i in ["othcg", "eventcg", "script" ]:
+            repack(lucksystem, source / "auxiliary-files" / "uncensored", input, i)
 
     # Handle the Suginami mod
     if not args.suginami:
         print("➡️ Patching Suginami assets...")
-        #repack(lucksystem, Path(f"{source}/auxiliary-files/suginami"), input, "charcg")
-        #repack(lucksystem, Path(f"{source}/auxiliary-files/suginami"), input, "script")
+        for i in ["charcg", "script"]:
+            repack(lucksystem, source / "auxiliary-files" / "suginami", input, i)
+
+    # Patch the exe
+    print("ℹ️ Patching the executable...")
+    try:
+        exe_backup.resolve(strict=True)
+    except:
+        shutil.copy(exe, exe_backup)
+        
+    pyxdelta.decode(str(exe_backup), str(source / "auxiliary-files" / "LITBUS_WIN32.xdelta"), str(exe))
+
+    # Patch the movies
+    print("ℹ️ Patching the movies...")
+    shutil.copytree(source / "auxiliary-files" / "movie", input / "files", dirs_exist_ok=True)
+
+    # Patch the config
+    print("ℹ️ Patching the config...")
+    shutil.copy(source / "auxiliary-files" / "system.cnf", input)
+
+    # Fix CHARCG.PAK
+    print("ℹ️ Fixing CHARCG.PAK...")
+    with open(input / "files" / "CHARCG.PAK", "r+b") as file:
+        file.seek(0x9568)
+        file.write(b"\x00" * (0xA42C - 0x9568))
 
     print("✅ Patching completed!")
 
@@ -91,14 +127,23 @@ def download(input, url):
     except:
         # Download via requests
         print(f"⬇️ Downloading {str(input).upper()}...")
-        request = requests.get(url, allow_redirects=True)
-        open(input.with_suffix('.zip'), 'wb').write(request.content)
+        try:
+            response = requests.get(url, allow_redirects=True)
+            response.raise_for_status()
+        except:
+            print(f"🟥 Failed to download {url}.")
+            print("If you want to use the installer offline, then download the source code and " \
+                "lucksystem beforhand. Afterwards place the 'source' folder and 'LuckSystem_windows.exe' " \
+                "or 'LuckSystem_linux' in the same folder as this patch")
+            exit(1)
+        open(input.with_suffix('.zip'), 'wb').write(response.content)
 
         # Extract via zipfile
         with ZipFile(input.with_suffix('.zip'), 'r') as zObject:
             zObject.extract(input.name)
         os.remove(input.with_suffix('.zip'))
-        os.chmod(input, 0o755)
+        if os.name != 'nt':
+            os.chmod(input, 0o755)
 
     else:
         print(f"☑️ {str(input).upper()} already downloaded")
@@ -110,9 +155,17 @@ def repack(lucksystem, source, input, file):
     pak_output = Path(f"{input}/files/{pak}-temp")
     pak_source = Path(f"{input}/files/{pak}")
 
+    # Error catching
+    try:
+        pak_source.resolve(strict=True)
+
+    except:
+        print(f"🟥 {pak} not found!")
+        exit(1)
+
     # Run lucksystem and replace original file
     print(f"ℹ️ Repacking {pak}...")
-    os.system(f'./{lucksystem} pak replace \
+    os.system(f'"{lucksystem}" pak replace \
               -s "{pak_source}" \
               -i "{pak_input}" \
               -o "{pak_output}"')

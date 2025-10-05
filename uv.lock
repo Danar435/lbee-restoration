@@ -86,12 +86,13 @@ wheels = [
 ]
 
 [[package]]
-name = "lbee-restoration"
-version = "0.1.0"
+name = "lbee-restoration-patch"
+version = "1.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "gooey" },
     { name = "pyinstaller" },
+    { name = "pyxdelta" },
     { name = "requests" },
     { name = "six" },
 ]
@@ -100,6 +101,7 @@ dependencies = [
 requires-dist = [
     { name = "gooey", specifier = ">=1.0.8.1" },
     { name = "pyinstaller", specifier = ">=6.16.0" },
+    { name = "pyxdelta", specifier = ">=0.2.2" },
     { name = "requests", specifier = ">=2.32.5" },
     { name = "six", specifier = ">=1.17.0" },
 ]
@@ -262,6 +264,22 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/85/9f/01a1a99704853cb63f253eea009390c88e7131c67e66a0a02099a8c917cb/pywin32-ctypes-0.2.3.tar.gz", hash = "sha256:d162dc04946d704503b2edc4d55f3dba5c1d539ead017afa00142c38b9885755", size = 29471, upload-time = "2024-08-14T10:15:34.626Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/de/3d/8161f7711c017e01ac9f008dfddd9410dff3674334c233bde66e7ba65bbf/pywin32_ctypes-0.2.3-py3-none-any.whl", hash = "sha256:8a1513379d709975552d202d942d9837758905c8d01eb82b8bcc30918929e7b8", size = 30756, upload-time = "2024-08-14T10:15:33.187Z" },
+]
+
+[[package]]
+name = "pyxdelta"
+version = "0.2.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ed/bb/b857e03c5d49c9fb147305c9056253332293814bc2fa8c123fb62b0ca658/pyxdelta-0.2.2.tar.gz", hash = "sha256:8ec8098111c2b855d2a304e82ad95869fc22d323c3598842677db565bc462189", size = 132910, upload-time = "2025-06-16T10:27:50.367Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bf/04/235625ca70bdfcd810c2515d8a6f9cc5481fca5b1319548728485ed9aa82/pyxdelta-0.2.2-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:de5bc430680530a025e4b5cccb55f9e1b7e3aca6a7413fcf2eb9d471322059f8", size = 60403, upload-time = "2025-06-16T10:26:59.976Z" },
+    { url = "https://files.pythonhosted.org/packages/b0/b0/3a030e9de561ec550d9dbd45b9ab6ef03d6d7ed809c8b27372166303bc1b/pyxdelta-0.2.2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:9e0674324199a6769377bac0b57601721aff64812c53803737dbf0284c4d4844", size = 57490, upload-time = "2025-06-16T10:27:01.027Z" },
+    { url = "https://files.pythonhosted.org/packages/2b/fe/e6e149edf4248b3659bd961024489befa3e89b6786826c3eb7e8ea026661/pyxdelta-0.2.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:494d039c9287b0be9f2c3b2ae2a79f0995a7b0a3e253d93516f78a0cc6d8a6b0", size = 239707, upload-time = "2025-06-16T10:27:01.792Z" },
+    { url = "https://files.pythonhosted.org/packages/89/86/8fb4f20ac5a15545580697ba8c353b5203eb88a652aa7c557e07c3fd98f4/pyxdelta-0.2.2-cp313-cp313-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:837d4904daafea924aae2b01d20d961a8453afb76a543f96c2ad89d08bd1c0e9", size = 251919, upload-time = "2025-06-16T10:27:02.923Z" },
+    { url = "https://files.pythonhosted.org/packages/4f/cf/9977564fc3bb31c6a62dfba09a2d095904042a36f5d4534c0eb96f8c9922/pyxdelta-0.2.2-cp313-cp313-musllinux_1_2_i686.whl", hash = "sha256:34bcf75599d1f27a61060a868f837fc9fa83068a82ae54bc66288b07eec6ef5e", size = 255734, upload-time = "2025-06-16T10:27:03.811Z" },
+    { url = "https://files.pythonhosted.org/packages/b8/6f/8059a4de4d03c1610a9d061e3c2cd5ec97b2d18a40d8397817af4ac0002e/pyxdelta-0.2.2-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:777288acfb945e8c8a1cdc568b767c86a7a3b4fc2bc2df59f225ef9436a5f675", size = 232371, upload-time = "2025-06-16T10:27:04.671Z" },
+    { url = "https://files.pythonhosted.org/packages/bc/0a/0556b1cd5d307cbfd84d09550eecb86ebf20c557eedae117c3673d8af641/pyxdelta-0.2.2-cp313-cp313-win32.whl", hash = "sha256:fb59767f6100aa8b6e4c7a2e51f2a4b9d1121a3dd806402ac36340f6c6305b01", size = 50244, upload-time = "2025-06-16T10:27:05.489Z" },
+    { url = "https://files.pythonhosted.org/packages/19/32/a09ad9d5522fcfac35c41d960154d84ffd8574a121c0add02b4fd5449864/pyxdelta-0.2.2-cp313-cp313-win_amd64.whl", hash = "sha256:16cdf89a369e2868d1d151e75966890f8b0403fa1ab449996c519f4e4d86d828", size = 46457, upload-time = "2025-06-16T10:27:06.469Z" },
 ]
 
 [[package]]
