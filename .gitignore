@@ -1,6 +1,11 @@
-/lucksystem
+# Local paths
 /output
 /backup
 /workdir
-/LuckSystem_windows.exe
-/LuckSystem_linux
+
+# Patch paths
+/LuckSystem_*
+/lbee-restoration-*
+
+# ZIP files
+*.zip
