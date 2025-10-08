@@ -4,7 +4,7 @@ from zipfile import ZipFile
 import os
 import requests
 import shutil
-import xdelta3
+import subprocess
 
 VERSION = "1.1.0"
 
@@ -22,16 +22,15 @@ os.environ['GTK_THEME'] = 'Adwaita:light'
         progress_expr="progress / total * 100"
         )
 def main():
-    # Define variables (OS specific)
-    if os.name == 'nt':
-        lucksystem = Path("./LuckSystem_windows.exe")
-        lucksystem_url = 'https://github.com/wetor/LuckSystem/releases/latest/download/LuckSystem_windows_x86_64.zip'
-    else:
-        lucksystem = Path("./LuckSystem_linux")
-        lucksystem_url = 'http://github.com/wetor/LuckSystem/releases/latest/download/LuckSystem_linux_x86_64.zip'
-
+    # Define paths
     source = Path(f"./lbee-restoration-{VERSION}/source")
     source_url = f'https://github.com/Danar435/lbee-restoration/archive/refs/tags/v{VERSION}.zip'
+    if os.name == 'nt':
+        lucksystem = Path(f"./lbee-restoration-{VERSION}/dependencies/lucksystem-windows.exe")
+        xdelta = Path(f"./lbee-restoration-{VERSION}/dependencies/xdelta3-windows.exe")
+    else:
+        lucksystem = Path(f"./lbee-restoration-{VERSION}/dependencies/lucksystem-linux")
+        xdelta3 = Path(f"./lbee-restoration-{VERSION}/dependencies/xdelta3-linux")
 
     # List of paks to repack
     pak_list = [ "battle", "bgcg", "charcg", "eventcg", "gencg", "gm", 
@@ -86,23 +85,6 @@ def main():
     if not args.suginami:
         total += len(suginami_list)
 
-    # Download lucksystem
-    if not lucksystem.exists():
-        # Download via requests
-        print(f"⬇️ Downloading LuckSystem...")
-        check_internet()
-        response = requests.get(lucksystem_url, allow_redirects=True)
-        open("lucksystem.zip", 'wb').write(response.content)
-
-        # Extract via zipfile
-        with ZipFile("lucksystem.zip", 'r') as zObject:
-            zObject.extract(lucksystem.name)
-        os.remove("lucksystem.zip")
-        if os.name != 'nt':
-            os.chmod(lucksystem, 0o755)
-    else:
-        print("☑️ LuckSystem already downloaded!")
-
     # Download the source
     if not source.exists():
         # Download via requests
@@ -117,9 +99,7 @@ def main():
 
         # Extract via zipfile
         with ZipFile("source.zip", 'r') as zObject:
-            for member in zObject.namelist():
-                if member.startswith(str(source)):
-                    zObject.extract(member)
+            zObject.extractall(".")
         os.remove("source.zip")
     else:
         print(f"☑️ The assets are already downloaded!")
@@ -129,18 +109,14 @@ def main():
     
     if not exe_backup.exists():
         shutil.copy(exe, exe_backup)
-    try:
-        with open(exe_backup, "rb") as f:
-            original_data = f.read()
-        with open(source / "auxiliary-files" / "LITBUS_WIN32.xdelta", "rb") as f:
-            patch_data = f.read()
 
-        decoded_data = xdelta3.decode(original_data, patch_data)
-
-        with open(exe, "wb") as f:
-            f.write(decoded_data)
-
-    except:
+    exe_patch = subprocess.run([
+                    os.path.join('.', xdelta3), "-d", "-f", "-s", 
+                    str(exe_backup), str(source / "auxiliary-files" / "LITBUS_WIN32.xdelta"), 
+                    str(exe)
+                    ])
+    
+    if exe_patch.returncode != 0:
         print("🟥 Failed to patch the executable!")
         print("ℹ️ Make sure that you are using a legitimate copy of LBEE. Any recent updates may break " \
         "the patch. If you have used this patch before and have deleted 'LITBUS_WIN32-backup.exe', " \
@@ -210,11 +186,28 @@ def repack(lucksystem, source, input, file, progress, total):
 
     # Run lucksystem and replace original file
     print(f"ℹ️ Patching {pak}... ({progress}/{total})")
-    os.system(f'"./{lucksystem}" pak replace \
-              -s "{pak_source}" \
-              -i "{pak_input}" \
-              -o "{pak_output}"')
-    os.rename(pak_output, pak_source)
+
+    # On windows
+    if os.name == 'nt':
+        for f in pak_input.iterdir():
+            subprocess.run([
+                os.path.join('.', lucksystem),
+                'pak', 'replace',
+                '-s', pak_source,
+                '-i', pak_input / f,
+                '-o', pak_source
+            ])
+
+    # On linux
+    else:
+        subprocess.run([
+            os.path.join('.', lucksystem),
+            'pak', 'replace',
+            '-s', pak_source,
+            '-i', pak_input,
+            '-o', pak_output
+            ])
+        os.rename(pak_output, pak_source)
 
 if __name__ == '__main__':
     main()

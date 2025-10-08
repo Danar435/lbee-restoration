@@ -9,5 +9,4 @@ dependencies = [
     "pyinstaller>=6.16.0",
     "requests>=2.32.5",
     "six>=1.17.0",
-    "xdelta3>=0.0.5",
 ]
