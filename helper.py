@@ -41,7 +41,7 @@ import struct
 lucksystem = Path("./lucksystem")
 pakdir = Path("backup/files/")
 workdir = Path("workdir")
-gamedir = Path("backup/Link to little-busters/files")
+gamedir = Path("backup/Link to Little Busters! English Edition/files")
 
 def ls_unpack(pak):
 

@@ -27,7 +27,7 @@ def main():
     source_url = f'https://github.com/Danar435/lbee-restoration/archive/refs/tags/v{VERSION}.zip'
     if os.name == 'nt':
         lucksystem = Path(f"./lbee-restoration-{VERSION}/dependencies/lucksystem-windows.exe")
-        xdelta = Path(f"./lbee-restoration-{VERSION}/dependencies/xdelta3-windows.exe")
+        xdelta3 = Path(f"./lbee-restoration-{VERSION}/dependencies/xdelta3-windows.exe")
     else:
         lucksystem = Path(f"./lbee-restoration-{VERSION}/dependencies/lucksystem-linux")
         xdelta3 = Path(f"./lbee-restoration-{VERSION}/dependencies/xdelta3-linux")
@@ -112,8 +112,9 @@ def main():
 
     exe_patch = subprocess.run([
                     os.path.join('.', xdelta3), "-d", "-f", "-s", 
-                    str(exe_backup), str(source / "auxiliary-files" / "LITBUS_WIN32.xdelta"), 
-                    str(exe)
+                    exe_backup,
+                    source / "auxiliary-files" / "LITBUS_WIN32.xdelta", 
+                    exe
                     ])
     
     if exe_patch.returncode != 0:
@@ -194,9 +195,10 @@ def repack(lucksystem, source, input, file, progress, total):
                 os.path.join('.', lucksystem),
                 'pak', 'replace',
                 '-s', pak_source,
-                '-i', pak_input / f,
-                '-o', pak_source
+                '-i', pak_input / f.name,
+                '-o', pak_output
             ])
+            os.rename(pak_output, pak_source)
 
     # On linux
     else:
