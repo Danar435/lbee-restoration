@@ -158,6 +158,12 @@ def main():
         file.seek(0x9568)
         file.write(b"\x00" * (0xA42C - 0x9568))
 
+    # Remove decropper mod if present
+    decropper_mod = input / "D3D11.dll"
+    if decropper_mod.exists():
+        print("ℹ️ Removing 'Decropper Mod'... (incompatible)")
+        os.remove(decropper_mod)
+
     # Finish
     print("✅ Patching completed!")
 
@@ -210,6 +216,8 @@ def repack(lucksystem, source, input, file, progress, total):
             '-o', pak_output
             ])
         os.rename(pak_output, pak_source)
+
+    # windows not working, waiting for lbee-pakutil to support batch imports
 
 if __name__ == '__main__':
     main()
