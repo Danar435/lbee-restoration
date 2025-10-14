@@ -12,6 +12,9 @@ VERSION = "1.1.0-alpha"
 # Needed for Gnome to work properly
 os.environ['GTK_THEME'] = 'Adwaita:light'
 
+# Needed for Windows emojis to work properly
+sys.stdout.reconfigure(encoding='utf-8')
+
 # Determine image path
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
@@ -96,7 +99,7 @@ def main():
     # Download the source
     if not source.exists():
         # Download via requests
-        print(f"⬇️ Downloading the assets...")
+        print(f"⬇️ Downloading the assets, this may take a few minutes...")
         check_internet()
         with requests.get(source_url, stream=True, allow_redirects=True) as r:
             r.raise_for_status()
@@ -111,6 +114,11 @@ def main():
         os.remove("source.zip")
     else:
         print(f"☑️ The assets are already downloaded!")
+
+    # Make dependencies executable on linux
+    if os.name != 'nt':
+        os.chmod(pakutil, 0o755)
+        os.chmod(xdelta3, 0o755)
 
     # Patch the exe
     print("ℹ️ Patching the executable...")
