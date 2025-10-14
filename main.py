@@ -5,11 +5,19 @@ import os
 import requests
 import shutil
 import subprocess
+import sys
 
 VERSION = "1.1.0-alpha"
 
 # Needed for Gnome to work properly
 os.environ['GTK_THEME'] = 'Adwaita:light'
+
+# Determine image path
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    else:
+        return os.path.join(os.path.abspath("."), relative_path)
 
 # Handle arguments in GUI
 @Gooey(
@@ -17,7 +25,7 @@ os.environ['GTK_THEME'] = 'Adwaita:light'
         program_name=f'LBEE Restoration Patch v{VERSION}',
         program_description="Restore the original look and feel of 'Little Busters English Edition'",
         show_restart_button=False,
-        image_dir='assets/gooey',
+        image_dir=resource_path('assets/gooey'),
         progress_regex = r"(?P<progress>\d+)/(?P<total>\d+)",
         progress_expr="progress / total * 100"
         )

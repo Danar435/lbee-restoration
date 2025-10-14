@@ -4,8 +4,9 @@
 /workdir
 
 # Patch paths
-/LuckSystem_*
 /lbee-restoration-*
+/build
+/dist
 
 # ZIP files
 *.zip
