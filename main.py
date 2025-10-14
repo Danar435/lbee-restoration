@@ -18,7 +18,7 @@ os.environ['GTK_THEME'] = 'Adwaita:light'
         program_description="Restore the original look and feel of 'Little Busters English Edition'",
         show_restart_button=False,
         image_dir='assets/gooey',
-        progress_regex=r"\((?P<progress>\d+)/(?P<total>\d+)\)$",
+        progress_regex=r"(?P<progress>\d+)/(?P<total>\d+)$",
         progress_expr="progress / total * 100"
         )
 def main():
@@ -125,29 +125,29 @@ def main():
         exit(1)
 
     # Patch the config
-    print("ℹ️ Patching the config...")
+    print("ℹ️ Copying the config...")
     shutil.copy(source / "auxiliary-files" / "system.cnf", input)
 
     # Patch the movies
-    print("ℹ️ Patching the movies...")
+    print("ℹ️ Copying the movies...")
     shutil.copytree(source / "auxiliary-files" / "movie", input / "files" / "movie", dirs_exist_ok=True)
 
     # Run the main repack script
-    print("➡️ Patching main assets...")
+    print("➡️ Processing main assets...")
     for i in pak_list:
         progress += 1
         repack(pakutil, source, input, i, progress, total)
 
     # Handle uncensoring assets
     if not args.uncensored:
-        print("➡️ Patching uncensored assets...")
+        print("➡️ Processing uncensored assets...")
         for i in uncensored_list:
             progress += 1
             repack(pakutil, source / "auxiliary-files" / "uncensored", input, i, progress, total)
 
     # Handle the Suginami mod
     if not args.suginami:
-        print("➡️ Patching Suginami assets...")
+        print("➡️ Processing Suginami assets...")
         for i in suginami_list:
             progress += 1
             repack(pakutil, source / "auxiliary-files" / "suginami", input, i, progress, total)
@@ -192,7 +192,7 @@ def repack(pakutil, source, input, file, progress, total):
         exit(1)
 
     # Run pakutil and replace original file
-    print(f"ℹ️ Patching {pak}... ({progress}/{total})")
+    print(f"ℹ️ Repacking file {progress}/{total}: {pak}...")
     subprocess.run([
         os.path.join('.', pakutil),
         pak_source,
