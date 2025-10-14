@@ -26,17 +26,17 @@ def main():
     source = Path(f"./lbee-restoration-{VERSION}/source")
     source_url = f'https://github.com/Danar435/lbee-restoration/archive/refs/tags/v{VERSION}.zip'
     if os.name == 'nt':
-        lucksystem = Path(f"./lbee-restoration-{VERSION}/dependencies/lucksystem-windows.exe")
-        xdelta3 = Path(f"./lbee-restoration-{VERSION}/dependencies/xdelta3-windows.exe")
+        pakutil = Path(f"./lbee-restoration-{VERSION}/dependencies/pakutil-v0.2.1-a6-windows.exe")
+        xdelta3 = Path(f"./lbee-restoration-{VERSION}/dependencies/xdelta3-v3.1.0-windows.exe")
     else:
-        lucksystem = Path(f"./lbee-restoration-{VERSION}/dependencies/lucksystem-linux")
-        xdelta3 = Path(f"./lbee-restoration-{VERSION}/dependencies/xdelta3-linux")
+        pakutil = Path(f"./lbee-restoration-{VERSION}/dependencies/pakutil-v0.2.1-a6-linux")
+        xdelta3 = Path(f"./lbee-restoration-{VERSION}/dependencies/xdelta3-v3.1.0-linux")
 
     # List of paks to repack
     pak_list = [ "battle", "bgcg", "charcg", "eventcg", "gencg", "gm", 
                 "othcg", "parts", "pt", "syscg", "script" ]
     uncensored_list = ["othcg", "eventcg", "script" ]
-    suginami_list =  ["charcg", "script" ]
+    suginami_list =  [ "script" ]
 
     # Set up the parser
     parser = GooeyParser()
@@ -136,21 +136,21 @@ def main():
     print("➡️ Patching main assets...")
     for i in pak_list:
         progress += 1
-        repack(lucksystem, source, input, i, progress, total)
+        repack(pakutil, source, input, i, progress, total)
 
     # Handle uncensoring assets
     if not args.uncensored:
         print("➡️ Patching uncensored assets...")
         for i in uncensored_list:
             progress += 1
-            repack(lucksystem, source / "auxiliary-files" / "uncensored", input, i, progress, total)
+            repack(pakutil, source / "auxiliary-files" / "uncensored", input, i, progress, total)
 
     # Handle the Suginami mod
     if not args.suginami:
         print("➡️ Patching Suginami assets...")
         for i in suginami_list:
             progress += 1
-            repack(lucksystem, source / "auxiliary-files" / "suginami", input, i, progress, total)
+            repack(pakutil, source / "auxiliary-files" / "suginami", input, i, progress, total)
 
     # Remove overlays in characters pak
     print("ℹ️ Fixing CHARCG.PAK...")
@@ -173,12 +173,12 @@ def check_internet():
         return
     except (requests.ConnectionError, requests.Timeout):
         print("🟥 Failed to connect to internet!")
-        print("ℹ️ If you want to use the installer offline, then download the source code and " \
-            "lucksystem beforhand. Afterwards place the 'source' folder and 'LuckSystem_windows.exe' " \
-            "or 'LuckSystem_linux' binary in the same folder as this patch.")
+        print("ℹ️ If you want to use the installer offline, then download the source code separately " \
+        "and extract it in the same folder as this patch. It should contain a folder named " \
+        "'lbee-restoration-{VERSION}'.")
         exit(1)
 
-def repack(lucksystem, source, input, file, progress, total):
+def repack(pakutil, source, input, file, progress, total):
     # Define paths
     pak = f"{file.upper()}.PAK"
     pak_input = Path(f"{source}/{file}-done/")
@@ -191,33 +191,16 @@ def repack(lucksystem, source, input, file, progress, total):
         print("ℹ️ Please verify game files within Steam and run the patch again.")
         exit(1)
 
-    # Run lucksystem and replace original file
+    # Run pakutil and replace original file
     print(f"ℹ️ Patching {pak}... ({progress}/{total})")
-
-    # On windows
-    if os.name == 'nt':
-        for f in pak_input.iterdir():
-            subprocess.run([
-                os.path.join('.', lucksystem),
-                'pak', 'replace',
-                '-s', pak_source,
-                '-i', pak_input / f.name,
-                '-o', pak_output
-            ])
-            os.rename(pak_output, pak_source)
-
-    # On linux
-    else:
-        subprocess.run([
-            os.path.join('.', lucksystem),
-            'pak', 'replace',
-            '-s', pak_source,
-            '-i', pak_input,
-            '-o', pak_output
-            ])
-        os.rename(pak_output, pak_source)
-
-    # windows not working, waiting for lbee-pakutil to support batch imports
+    subprocess.run([
+        os.path.join('.', pakutil),
+        pak_source,
+        'replace', '-b',
+        pak_input,
+        pak_output
+        ])
+    os.rename(pak_output, pak_source)
 
 if __name__ == '__main__':
     main()
