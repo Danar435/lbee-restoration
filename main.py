@@ -18,7 +18,7 @@ os.environ['GTK_THEME'] = 'Adwaita:light'
         program_description="Restore the original look and feel of 'Little Busters English Edition'",
         show_restart_button=False,
         image_dir='assets/gooey',
-        progress_regex=r"(?P<progress>\d+)/(?P<total>\d+)$",
+        progress_regex = r"(?P<progress>\d+)/(?P<total>\d+)",
         progress_expr="progress / total * 100"
         )
 def main():
@@ -200,7 +200,7 @@ def repack(pakutil, source, input, file, progress, total):
         pak_input,
         pak_output
         ])
-    os.rename(pak_output, pak_source)
+    shutil.move(pak_output, pak_source)
 
 if __name__ == '__main__':
     main()
