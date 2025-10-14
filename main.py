@@ -6,7 +6,7 @@ import requests
 import shutil
 import subprocess
 
-VERSION = "1.1.0"
+VERSION = "1.1.0-alpha"
 
 # Needed for Gnome to work properly
 os.environ['GTK_THEME'] = 'Adwaita:light'
