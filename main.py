@@ -12,6 +12,8 @@ VERSION = "1.1.0-alpha"
 # Needed for Gnome to work properly
 os.environ['GTK_THEME'] = 'Adwaita:light'
 
+no_term = subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0
+
 # Determine image path
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
@@ -80,10 +82,11 @@ def main():
     
     # Check if the path is right
     if not exe.exists():
-        print("[ERROR] LITBUS_WIN32.exe not found!")
-        print("Make sure that the game path is correct. " \
-        "It should point to the folder 'Little Busters! English Edition'.")
-        exit(1)
+        print("[ERROR] LITBUS_WIN32.exe not found!", flush=True)
+        print("Make sure that the game path is correct. It should point" \
+        " to the folder 'Little Busters! English Edition'. Default installation path is" \
+        " 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Little Busters! English Edition'", flush=True)
+        sys.exit(1)
 
     # Set up progress variables
     progress = 0
@@ -96,7 +99,7 @@ def main():
     # Download the source
     if not source.exists():
         # Download via requests
-        print("Downloading the assets, this may take a few minutes...")
+        print("Downloading the assets, this may take a few minutes...", flush=True)
         check_internet()
         with requests.get(source_url, stream=True, allow_redirects=True) as r:
             r.raise_for_status()
@@ -110,7 +113,7 @@ def main():
             zObject.extractall(".")
         os.remove("source.zip")
     else:
-        print("The assets are already downloaded!")
+        print("The assets are already downloaded!", flush=True)
 
     # Make dependencies executable on linux
     if os.name != 'nt':
@@ -118,55 +121,56 @@ def main():
         os.chmod(xdelta3, 0o755)
 
     # Patch the exe
-    print("Patching the executable...")
+    print("Patching the executable...", flush=True)
     
     if not exe_backup.exists():
         shutil.copy(exe, exe_backup)
 
+    # Hide console window on Windows
     exe_patch = subprocess.run([
                     os.path.join('.', xdelta3), "-d", "-f", "-s", 
                     exe_backup,
                     source / "auxiliary-files" / "LITBUS_WIN32.xdelta", 
                     exe
-                    ])
+                    ], creationflags=no_term)
     
     if exe_patch.returncode != 0:
-        print("[ERROR] Failed to patch the executable!")
+        print("[ERROR] Failed to patch the executable!", flush=True)
         print("Make sure that you are using a legitimate copy of LBEE. Any recent updates may break " \
         "the patch. If you have used this patch before and have deleted 'LITBUS_WIN32-backup.exe', " \
-        "then please verify game files within Steam and run the patch again.")
-        exit(1)
+        "then please verify game files within Steam and run the patch again.", flush=True)
+        sys.exit(1)
 
     # Patch the config
-    print("Copying the config...")
+    print("Copying the config...", flush=True)
     shutil.copy(source / "auxiliary-files" / "system.cnf", input)
 
     # Patch the movies
-    print("Copying the movies...")
+    print("Copying the movies...", flush=True)
     shutil.copytree(source / "auxiliary-files" / "movie", input / "files" / "movie", dirs_exist_ok=True)
 
     # Run the main repack script
-    print("Processing main assets...")
+    print("Processing main assets...", flush=True)
     for i in pak_list:
         progress += 1
         repack(pakutil, source, input, i, progress, total)
 
     # Handle uncensoring assets
     if not args.uncensored:
-        print("Processing uncensored assets...")
+        print("Processing uncensored assets...", flush=True)
         for i in uncensored_list:
             progress += 1
             repack(pakutil, source / "auxiliary-files" / "uncensored", input, i, progress, total)
 
     # Handle the Suginami mod
     if not args.suginami:
-        print("Processing Suginami assets...")
+        print("Processing Suginami assets...", flush=True)
         for i in suginami_list:
             progress += 1
             repack(pakutil, source / "auxiliary-files" / "suginami", input, i, progress, total)
 
     # Remove overlays in characters pak
-    print("Fixing CHARCG.PAK...")
+    print("Fixing CHARCG.PAK...", flush=True)
     with open(input / "files" / "CHARCG.PAK", "r+b") as file:
         file.seek(0x9568)
         file.write(b"\x00" * (0xA42C - 0x9568))
@@ -174,22 +178,22 @@ def main():
     # Remove decropper mod if present
     decropper_mod = input / "D3D11.dll"
     if decropper_mod.exists():
-        print("Removing 'Decropper Mod'... (incompatible)")
+        print("Removing 'Decropper Mod'... (incompatible)", flush=True)
         os.remove(decropper_mod)
 
     # Finish
-    print("[SUCCESS] Patching completed!")
+    print("[SUCCESS] Patching completed!", flush=True)
 
 def check_internet():
     try:
         response = requests.get('https://www.google.com/', timeout=5)
         return
     except (requests.ConnectionError, requests.Timeout):
-        print("[ERROR] Failed to connect to internet!")
+        print("[ERROR] Failed to connect to internet!", flush=True)
         print("If you want to use the installer offline, then download the source code separately " \
         "and extract it in the same folder as this patch. It should contain a folder named " \
-        "'lbee-restoration-{VERSION}'.")
-        exit(1)
+        "'lbee-restoration-{VERSION}'.", flush=True)
+        sys.exit(1)
 
 def repack(pakutil, source, input, file, progress, total):
     # Define paths
@@ -200,19 +204,19 @@ def repack(pakutil, source, input, file, progress, total):
 
     # Error catching
     if not pak_source.exists():
-        print(f"[ERROR] {pak} not found!")
-        print("Please verify game files within Steam and run the patch again.")
-        exit(1)
+        print(f"[ERROR] {pak} not found!", flush=True)
+        print("Please verify game files within Steam and run the patch again.", flush=True)
+        sys.exit(1)
 
     # Run pakutil and replace original file
-    print(f"Repacking file {progress}/{total}: {pak}...")
+    print(f"Repacking file {progress}/{total}: {pak}...", flush=True)
     subprocess.run([
         os.path.join('.', pakutil),
         pak_source,
         'replace', '-b',
         pak_input,
         pak_output
-        ])
+        ], creationflags=no_term)
     shutil.move(pak_output, pak_source)
 
 if __name__ == '__main__':
