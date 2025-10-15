@@ -12,9 +12,6 @@ VERSION = "1.1.0-alpha"
 # Needed for Gnome to work properly
 os.environ['GTK_THEME'] = 'Adwaita:light'
 
-# Needed for Windows emojis to work properly
-sys.stdout.reconfigure(encoding='utf-8')
-
 # Determine image path
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
@@ -83,8 +80,8 @@ def main():
     
     # Check if the path is right
     if not exe.exists():
-        print("🟥 LITBUS_WIN32.exe not found!")
-        print("ℹ️ Make sure that the game path is correct. " \
+        print("[ERROR] LITBUS_WIN32.exe not found!")
+        print("Make sure that the game path is correct. " \
         "It should point to the folder 'Little Busters! English Edition'.")
         exit(1)
 
@@ -99,7 +96,7 @@ def main():
     # Download the source
     if not source.exists():
         # Download via requests
-        print(f"⬇️ Downloading the assets, this may take a few minutes...")
+        print("Downloading the assets, this may take a few minutes...")
         check_internet()
         with requests.get(source_url, stream=True, allow_redirects=True) as r:
             r.raise_for_status()
@@ -113,7 +110,7 @@ def main():
             zObject.extractall(".")
         os.remove("source.zip")
     else:
-        print(f"☑️ The assets are already downloaded!")
+        print("The assets are already downloaded!")
 
     # Make dependencies executable on linux
     if os.name != 'nt':
@@ -121,7 +118,7 @@ def main():
         os.chmod(xdelta3, 0o755)
 
     # Patch the exe
-    print("ℹ️ Patching the executable...")
+    print("Patching the executable...")
     
     if not exe_backup.exists():
         shutil.copy(exe, exe_backup)
@@ -134,42 +131,42 @@ def main():
                     ])
     
     if exe_patch.returncode != 0:
-        print("🟥 Failed to patch the executable!")
-        print("ℹ️ Make sure that you are using a legitimate copy of LBEE. Any recent updates may break " \
+        print("[ERROR] Failed to patch the executable!")
+        print("Make sure that you are using a legitimate copy of LBEE. Any recent updates may break " \
         "the patch. If you have used this patch before and have deleted 'LITBUS_WIN32-backup.exe', " \
         "then please verify game files within Steam and run the patch again.")
         exit(1)
 
     # Patch the config
-    print("ℹ️ Copying the config...")
+    print("Copying the config...")
     shutil.copy(source / "auxiliary-files" / "system.cnf", input)
 
     # Patch the movies
-    print("ℹ️ Copying the movies...")
+    print("Copying the movies...")
     shutil.copytree(source / "auxiliary-files" / "movie", input / "files" / "movie", dirs_exist_ok=True)
 
     # Run the main repack script
-    print("➡️ Processing main assets...")
+    print("Processing main assets...")
     for i in pak_list:
         progress += 1
         repack(pakutil, source, input, i, progress, total)
 
     # Handle uncensoring assets
     if not args.uncensored:
-        print("➡️ Processing uncensored assets...")
+        print("Processing uncensored assets...")
         for i in uncensored_list:
             progress += 1
             repack(pakutil, source / "auxiliary-files" / "uncensored", input, i, progress, total)
 
     # Handle the Suginami mod
     if not args.suginami:
-        print("➡️ Processing Suginami assets...")
+        print("Processing Suginami assets...")
         for i in suginami_list:
             progress += 1
             repack(pakutil, source / "auxiliary-files" / "suginami", input, i, progress, total)
 
     # Remove overlays in characters pak
-    print("ℹ️ Fixing CHARCG.PAK...")
+    print("Fixing CHARCG.PAK...")
     with open(input / "files" / "CHARCG.PAK", "r+b") as file:
         file.seek(0x9568)
         file.write(b"\x00" * (0xA42C - 0x9568))
@@ -177,19 +174,19 @@ def main():
     # Remove decropper mod if present
     decropper_mod = input / "D3D11.dll"
     if decropper_mod.exists():
-        print("ℹ️ Removing 'Decropper Mod'... (incompatible)")
+        print("Removing 'Decropper Mod'... (incompatible)")
         os.remove(decropper_mod)
 
     # Finish
-    print("✅ Patching completed!")
+    print("[SUCCESS] Patching completed!")
 
 def check_internet():
     try:
         response = requests.get('https://www.google.com/', timeout=5)
         return
     except (requests.ConnectionError, requests.Timeout):
-        print("🟥 Failed to connect to internet!")
-        print("ℹ️ If you want to use the installer offline, then download the source code separately " \
+        print("[ERROR] Failed to connect to internet!")
+        print("If you want to use the installer offline, then download the source code separately " \
         "and extract it in the same folder as this patch. It should contain a folder named " \
         "'lbee-restoration-{VERSION}'.")
         exit(1)
@@ -203,12 +200,12 @@ def repack(pakutil, source, input, file, progress, total):
 
     # Error catching
     if not pak_source.exists():
-        print(f"🟥 {pak} not found!")
-        print("ℹ️ Please verify game files within Steam and run the patch again.")
+        print(f"[ERROR] {pak} not found!")
+        print("Please verify game files within Steam and run the patch again.")
         exit(1)
 
     # Run pakutil and replace original file
-    print(f"ℹ️ Repacking file {progress}/{total}: {pak}...")
+    print(f"Repacking file {progress}/{total}: {pak}...")
     subprocess.run([
         os.path.join('.', pakutil),
         pak_source,
