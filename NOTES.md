@@ -10,30 +10,17 @@ There are 5 distinct steps for the process, and I'll be referring to each step b
 Original (pak) -> unpacked (cz) -> extracted (png) -> modified (png) -> imported (cz) -> repacked (pak)
 ```
 
-
-
 ## Tools
 
-There are a number of tools used for this project, and none of them are perfect.
+There are a number of tools used for this project:
 
 ### LuckSystem
 
-Used for unpacking and repacking pak files. 
-
-```bash
-lucksystem pak extract -s INPUT.PAK -i INPUT.PAK -o out.txt -a unpacked/
-```
-```bash
-lucksystem pak replace -s INPUT.PAK -i imported/ -o OUTPUT.PAK
-```
-
-Make sure that the output folder exists beforehand.
-
-LuckSystem can also handle images, but the process is more annoying. It also doesn't properly extract some images. As for importing images, you need to make sure that the size in the source header matches the size of the image beforehand and after importing you need to decrease the byte at offset `0x24` by 1 for some reason. See what I mean by annoying?
+This was used throughout most of the project, but now it's completely replaced by lbee-utils.
 
 ### lbee-utils
 
-Used for extracting and importing images.  
+Used for unpacking / repacking pak files and extracting / importing images.  
 
 ```bash
 lbee-czutil decode unpacked extracted.png
@@ -48,7 +35,7 @@ There is also a pak tool, but I can't get it to work properly.
 
 ### LB_repack 
 
-Used for editing the script. This one is actually pretty nice, except that there is an initial setup.
+Used for editing the script. There is an initial setup.
 
 ```bash
   cd LB_repack

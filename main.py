@@ -8,6 +8,7 @@ import subprocess
 import sys
 
 VERSION = "1.1.0-alpha"
+SOURCE_SIZE = 2568
 
 # Needed for Gnome to work properly
 os.environ['GTK_THEME'] = 'Adwaita:light'
@@ -27,6 +28,7 @@ def resource_path(relative_path):
         program_name=f'LBEE Restoration Patch v{VERSION}',
         program_description="Restore the original look and feel of 'Little Busters English Edition'",
         show_restart_button=False,
+        clear_before_run=True,
         image_dir=resource_path('assets/gooey'),
         progress_regex = r"(?P<progress>\d+)/(?P<total>\d+)",
         progress_expr="progress / total * 100"
@@ -98,17 +100,28 @@ def main():
 
     # Download the source
     if not source.exists():
-        # Download via requests
         print("Downloading the assets, this may take a few minutes...", flush=True)
         check_internet()
-        with requests.get(source_url, stream=True, allow_redirects=True) as r:
+        with requests.get(source_url, stream=True) as r:
             r.raise_for_status()
+
+            # GitHub doesn't provide `content-length`, must be set manually
+            total_size = SOURCE_SIZE
+            block_size = 8192
+            downloaded = 0
+            update = 0
+
             with open("source.zip", 'wb') as f:
-                for chunk in r.iter_content(chunk_size=8192):
+                for chunk in r.iter_content(chunk_size=block_size):
                     if chunk:
                         f.write(chunk)
+                        downloaded += len(chunk)/1024/1024
+                        if downloaded >= update:
+                            print(f"Downloading the assets: {int(downloaded)}/{total_size} MB", flush=True) 
+                            update += 8
 
         # Extract via zipfile
+        print("Extracting the assets...", flush=True)
         with ZipFile("source.zip", 'r') as zObject:
             zObject.extractall(".")
         os.remove("source.zip")

@@ -4,22 +4,13 @@ Restore Little Busters' original assets!
 
 This patch is aimed at the Steam version of Little Busters: English Edition, a port created by Prototype using the Luca Engine. These ports are notorious for having a bland UI and cut backgrounds/CGs due to the 16:9 aspect ratio. Well, that is no longer the case. With this patch...
 
-- The game window is set to 4:3
-- Backgrounds are restored to 4:3
-- CGs are restored to 4:3
-- CGs are uncensored like the original (optional)
-- Komari's "donut scene" is restored (optional)
-- Textboxes are changed to look like the original
-- Revamped some menus like the original
-- Characters are slightly taller
+- The game window and assets are restored to 4:3
+- The UI is revamped to mimic the original
+- Some CGs are uncensored like the original (optional)
 - Added in fan sprites for Suginami (optional)
 - The original OP is back! (set movie quality to low under system in game settings)
 
-Do note that the patch is uncensored by default to the levels of the original VN, not of Ecstasy. 
-
-Some elements could not be restored to 4:3, specifically the battle and baseball minigames, with the battle minigame appearing slightly zoomed in. Additionally, certain elements like the 'status' card images are now broken.
-
-Because this is an asset replacement patch, there are limitations to what can be achieved. Fixing the aforementioned issues would require decompiling the engine to manipulate UI and text element positioning, which is beyond the scope of this project. I've done as much as I could do with the tools that I was given.
+Do note that the patch is uncensored by default to the levels of the original VN, not of Ecstasy. Also, some elements could not be restored to 4:3, specifically the battle and baseball minigames. We are actively working to get them fixed! 
 
 ## Screenshots
 
@@ -55,30 +46,36 @@ Because this is an asset replacement patch, there are limitations to what can be
 
 ## Installing
 
-Download the patch from the [releases tab](https://github.com/Danar435/lbee-restoration/releases)!
+Download the patch installer corresponding to your operating system from the [releases tab](https://github.com/Danar435/lbee-restoration/releases).
 
-Afterwards, extract the zip file and copy its contents to the game installation directory, which is usually in `C:\Program Files (x86)\Steam\steamapps\common\Little Busters! English Edition`. When Windows prompts you about overwriting the files, click "Yes" to proceed. The patch is then installed!
+Run the installer and select the game installation directory, which is usually `C:\Program Files (x86)\Steam\steamapps\common\Little Busters! English Edition`. Configure the optional settings and press `Start`!
 
-Before installing the patch, consider backing up the `files` folder and `system.cnf` file to avoid redownloading the original files in case you want to revert the changes later. If you've already installed the patch and want to redownload the original files, right-click the game in Steam, select "Properties", navigate to "Installed Files", and click "Verify integrity of game files". Steam will then redownload all of the files that were replaced.
+The installer should download the source files automatically from GitHub's servers. The files are quite big, so make sure that you have at least 5 GB of available space on the machine.
+
+If everything goes accordingly, the installer should finish with a SUCCESS message. You can then close it and run Little Busters! If you want to change any of the optional settings afterwards, you can just run the installer again. If you are happy with the patch, then you can delete the installer and the leftover assets alongside the installer.
+
+### Uninstalling
+
+If you've installed the patch and want to redownload the original files, right-click the game in Steam, select "Properties", navigate to "Installed Files", and click "Verify integrity of game files". Steam will then redownload all of the files that were replaced.
+
+Another thing you can do is to back up the `files` folder and `system.cnf` file to avoid redownloading the original files from Steam. 
+
+### Offline Installation
+
+If you want to use the installer on an offline machine, or if you want to download the assets yourself, then download the `Source Code` from the same release as the installer. Then extract the contents inside and place it in the same directory as the installer.
+
+### Manual Installation
+
+If you don't want to use the installer, you can download the source code and use the tools inside of the `dependencies` folder to manually patch the assets and the executable.
 
 ## Building
 
-To build the patch on Linux, use the provided bash script. You'll need the [LuckSystem](http://github.com/wetor/LuckSystem/releases/latest/download/LuckSystem_linux_x86_64.zip) binary in the same folder as the script, or alternatively specify its location with `-l`.
-
-To create the patch using the original uncensored assets, run:
+To build the program, first install [uv](https://github.com/astral-sh/uv), then inside of the project repo, run:
 
 ```bash
-./lbee-repack.sh /path/to/game/folder/
+uv sync
+uv run pyinstaller main.spec
 ```
-
-To create the patch using LBEE's censored assets, run:
-
-```bash
-./lbee-repack.sh -c /path/to/game/folder/
-```
-
-
-The script will repack the files and create an `output` folder containing the patched pak files. 
 
 ## Notes
 
@@ -89,7 +86,8 @@ I've made some notes for those looking into making a similar patch or contribute
 - [WéΤοr](https://github.com/wetor) for [LuckSystem](https://github.com/wetor/LuckSystem) 
 - [G2](https://github.com/G2-Games) for [lbee-utils](https://github.com/G2-Games/lbee-utils)
 - [danil](https://github.com/thedanill) for [LB_repack](https://github.com/thedanill/LB_repack)
-- [CPlusSharp](https://github.com/cplussharp/) for [GraphStudioNext](https://github.com/cplussharp/graph-studio-next)
+- [Chris](https://github.com/chriskiehl) for [Gooey](https://github.com/chriskiehl/Gooey)
 - [Takafumi](https://forum.kazamatsuri.org/u/Takafumi/summary) for the [Suginami Mod](https://forum.kazamatsuri.org/t/little-busters-suginami-mutsumi-mod/823)
+- [CPlusSharp](https://github.com/cplussharp/) for [GraphStudioNext](https://github.com/cplussharp/graph-studio-next)
 - [Sep7](https://github.com/Sep7em) for feedback
 - [Kotomi](https://github.com/zipplet)
