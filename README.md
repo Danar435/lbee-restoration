@@ -10,7 +10,7 @@ This patch is aimed at the Steam version of Little Busters: English Edition, a p
 - Added in fan sprites for Suginami (optional)
 - The original OP is back! (set movie quality to low under system in game settings)
 
-Do note that the patch is uncensored by default to the levels of the original VN, not of Ecstasy. Also, some elements could not be restored to 4:3, specifically the battle and baseball minigames. We are actively working to get them fixed! 
+Do note that the patch is uncensored by default to the levels of the original VN, not of Ecstasy. Also, the baseball minigame is not be restored to 4:3 yet.
 
 ## Screenshots
 
@@ -28,22 +28,16 @@ Do note that the patch is uncensored by default to the levels of the original VN
     <img src="assets/screenshot-3.png" alt="CGs" width="350"/>
   </a>
   <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/screenshot-4.png">
-    <img src="assets/screenshot-4.png" alt="Events" width="350"/>
+    <img src="assets/screenshot-4.png" alt="Choices" width="350"/>
   </a>
   <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/screenshot-5.png">
-    <img src="assets/screenshot-5.png" alt="Choices" width="350"/>
+    <img src="assets/screenshot-5.png" alt="Suginami" width="350"/>
   </a>
   <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/screenshot-6.png">
-    <img src="assets/screenshot-6.png" alt="Suginami" width="350"/>
+    <img src="assets/screenshot-6.png" alt="Battles" width="350"/>
   </a>
   <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/screenshot-7.png">
-    <img src="assets/screenshot-7.png" alt="Battles" width="350"/>
-  </a>
-  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/screenshot-8.png">
-    <img src="assets/screenshot-8.png" alt="Rankings" width="350"/>
-  </a>
-  <a href="https://raw.githubusercontent.com/Danar435/lbee-restoration/refs/heads/main/assets/screenshot-9.png">
-    <img src="assets/screenshot-9.png" alt="Baseball" width="350"/>
+    <img src="assets/screenshot-7.png" alt="Baseball" width="350"/>
   </a>
 </p>
 
