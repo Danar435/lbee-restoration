@@ -7,8 +7,8 @@ import shutil
 import subprocess
 import sys
 
-VERSION = "1.1.1"
-SOURCE_SIZE = 2520
+VERSION = "1.1.2"
+SOURCE_SIZE = 2016
 
 # Needed for Gnome to work properly
 os.environ['GTK_THEME'] = 'Adwaita:light'
@@ -161,6 +161,7 @@ def main():
     # Patch the movies
     print("Copying the movies...", flush=True)
     shutil.copytree(source / "auxiliary-files" / "movie", input / "files" / "movie", dirs_exist_ok=True)
+    os.remove(input / "files" / "movie" / "low" / "EDAL_en.webm")
 
     # Run the main repack script
     print("Processing main assets...", flush=True)

@@ -8,7 +8,7 @@ This patch is aimed at the Steam version of Little Busters: English Edition, a p
 - The UI is revamped to mimic the original
 - Some CGs are uncensored like the original (optional)
 - Added in fan sprites for Suginami (optional)
-- The original OP is back! (set movie quality to low under system in game settings)
+- The original OP is back! (set movie type under system in game settings)
 
 Do note that the patch is uncensored by default to the levels of the original VN, not of Ecstasy. Also, the baseball minigame is not restored to 4:3 yet.
 
@@ -80,11 +80,8 @@ I've made some notes for those looking into making a similar patch or contribute
 
 ## Special Thanks
 
-- [WéΤοr](https://github.com/wetor) for [LuckSystem](https://github.com/wetor/LuckSystem) 
 - [G2](https://github.com/G2-Games) for [lbee-utils](https://github.com/G2-Games/lbee-utils)
 - [danil](https://github.com/thedanill) for [LB_repack](https://github.com/thedanill/LB_repack)
+- [ReverseLover](https://github.com/ReverseLover) for [LbReMuxer](https://github.com/ReverseLover/LbReMuxer)
 - [Takafumi](https://forum.kazamatsuri.org/u/Takafumi/summary) for the [Suginami Mod](https://forum.kazamatsuri.org/t/little-busters-suginami-mutsumi-mod/823)
-- [Chris](https://github.com/chriskiehl) for [Gooey](https://github.com/chriskiehl/Gooey)
-- [CPlusSharp](https://github.com/cplussharp/) for [GraphStudioNext](https://github.com/cplussharp/graph-studio-next)
-- [Sep7](https://github.com/Sep7em) for feedback
-- [Kotomi](https://github.com/zipplet)
+- [Sep7](https://github.com/Sep7em) and [Kotomi](https://github.com/zipplet) for feedback
