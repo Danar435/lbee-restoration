@@ -161,7 +161,8 @@ def main():
     # Patch the movies
     print("Copying the movies...", flush=True)
     shutil.copytree(source / "auxiliary-files" / "movie", input / "files" / "movie", dirs_exist_ok=True)
-    os.remove(input / "files" / "movie" / "low" / "EDAL_en.webm")
+    if Path(input / "files" / "movie" / "low" / "EDAL_en.webm").exists():
+        os.remove(input / "files" / "movie" / "low" / "EDAL_en.webm")
 
     # Run the main repack script
     print("Processing main assets...", flush=True)
